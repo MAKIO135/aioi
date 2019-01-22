@@ -1,0 +1,174 @@
+@import url('https://fonts.googleapis.com/css?family=Fira+Mono');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #29272b;
+    color: #eee;
+    font-family: 'Fira Mono', monospace;
+    font-size: 14px;
+    line-height: 18px;
+    padding: 16px 8px;
+    min-width: 250px;
+}
+
+ul {
+    list-style: none;
+    // width: 300px;
+
+    &#hosts {
+        li {
+            // &:not(:last-child) {
+            //     .drag-handle {
+            //
+            //         &::after {
+            //             content: "⋮⋮";
+            //         }
+            //
+            //         font-size: 20px;
+            //         font-weight: bold;
+            //         position: absolute;
+            //         top: 50%;
+            //         right: 8px;
+            //         cursor: -webkit-grab;
+            //         transform: translateY(-50%);
+            //         color: #65606c;
+            //
+            //         &:hover {
+            //             color: white;
+            //         }
+            //     }
+            // }
+        }
+    }
+
+    li {
+        position: relative;
+        margin-bottom: 8px;
+        padding-right: 24px;
+        transition: background-color .3s ease;
+        padding: 4px;
+
+        &.active {
+            background-color: transparentize(#e4755f, .8);
+            transition: none;
+        }
+
+        .index {
+            display: inline-block;
+            color: #65606c;
+
+            &:before {
+                content: "[";
+            }
+
+            &:after {
+                content: "]";
+            }
+
+            &[data-action="add"] {
+                &:hover {
+                    color: white;
+                    cursor: pointer;
+                }
+            }
+        }
+
+        .host {
+            display: inline-block;
+            color: #e4755f;
+            margin: 0 1ch;
+            min-width: 20ch;
+
+            &:hover,
+            &:focus {
+                outline: none;
+                color: #dddddd;
+            }
+
+            &::selection {
+                background-color: rgba(255,255,255,.1);
+            }
+        }
+
+        .msg {
+            margin-left: 4ch;
+            color: #65606c;
+            margin-right: 32px;
+
+            &:hover,
+            &:focus {
+                outline: none;
+                color: #dddddd;
+            }
+        }
+    }
+}
+
+#shortcuts {
+    text-align: center;
+
+    p {
+        display: inline-block;
+        position: relative;
+        color: #65606c;
+        cursor: pointer;
+        margin: 1em auto;
+
+        &:hover {
+            color: white;
+        }
+
+        span {
+            &:before {
+                display: inline-block;
+                content: "«";
+                transform: rotate(-90deg);
+            }
+        }
+    }
+
+    ul {
+        display: none;
+        text-align: left;
+    }
+
+    &.open {
+        span {
+            &:before {
+                transform: rotate(90deg);
+            }
+        }
+
+        ul {
+            display: block;
+        }
+    }
+}
+
+#tooltip {
+    position: absolute;
+    padding: 4px 8px;
+    background-color: black;
+    visibility: hidden;
+
+    &.visible {
+        visibility: visible;
+    }
+}
+
+kbd {
+    color: #65606c;
+
+    &:before {
+        content: "[";
+    }
+
+    &:after {
+        content: "]";
+    }
+}
