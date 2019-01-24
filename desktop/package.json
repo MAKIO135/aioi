@@ -1,0 +1,37 @@
+{
+  "name": "orca-osc-bridge",
+  "version": "0.1.0",
+  "description": "Supercharge Orca's UDP operator to send complex OSC message",
+  "homepage": "https://github.com/makio135/orca-osc-bridge#readme",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron .",
+    "clean": "rm -r ~/Desktop/Orca-darwin-x64/ ; rm -r ~/Desktop/Orca-linux-x64/ ; rm -r ~/Desktop/Orca-win32-x64/ ; echo 'cleaned build location'",
+    "build_osx": "electron-packager . Orca --platform=darwin --arch=x64 --out ~/Desktop/ --overwrite --icon=icon.icns ; echo 'Built for OSX'",
+    "build_linux": "electron-packager . Orca --platform=linux  --arch=x64 --out ~/Desktop/ --overwrite --icon=icon.ico ; echo 'Built for LINUX'",
+    "build_win": "electron-packager . Orca --platform=win32  --arch=x64 --out ~/Desktop/ --overwrite --icon=icon.ico ; echo 'Built for WIN'",
+    "build": "npm run clean ; npm run build_osx ; npm run build_linux ; npm run build_win"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/makio135/orca-osc-bridge.git"
+  },
+  "keywords": [
+    "Orca",
+    "UDP",
+    "OSC"
+  ],
+  "author": "@makio135, @ashugeo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/makio135/orca-osc-bridge/issues"
+  },
+  "devDependencies": {
+    "electron": "^4.0.2",
+    "electron-packager": "^13.0.1",
+    "electron-rebuild": "^1.8.2"
+  },
+  "dependencies": {
+    "node-osc": "^3.0.0"
+  }
+}

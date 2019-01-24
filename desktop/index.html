@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Orca OSC Bridge</title>
+        <link rel="stylesheet" href="src/links/main.min.css">
+    </head>
+
+    <body>
+        <ul id="hosts">
+            <li>
+                <p class="index" data-action="add">+</p>
+            </li>
+        </ul>
+
+        <div id="shortcuts">
+            <p>[<span></span>]</p>
+
+            <ul>
+                <li>Click <kbd>+</kbd> to add new host.</li>
+                <li>Empty host adress and hit <kbd>Enter</kbd> to remove.</li>
+                <li>Focus message and hit <kbd>Enter</kbd> to send.</li>
+            </ul>
+        </div>
+
+        <div id="tooltip">
+            Hi
+        </div>
+
+        <script>
+            require('./src/scripts/main.js')
+        </script>
+    </body>
+</html>
