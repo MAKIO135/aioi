@@ -1,23 +1,20 @@
-const dgram = require('dgram')
+const udp = (() => {
+    const dgram = require('dgram')
+    const server = dgram.createSocket('udp4')
 
-class Udp {
-    constructor() {
-        this.server = dgram.createSocket('udp4')
-        
-        const ORCA_PORT = 49160
-        this.server.bind(ORCA_PORT) // Listen for ORCA
+    server.on('error', err => {
+        console.warn(`udp error: \n${err.stack}`)
+        server.close()
+    })
 
-        this.on('error', err => {
-            console.warn(`udp error:\n${err.stack}`)
-            this.server.close()
-        })
+    const on = (event, callback) => {
+        server.on(event, callback)
     }
 
-    on(event, callback) {
-        this.server.on(event, callback)
+    return { 
+        on, 
+        bind: port => server.bind(port)
     }
-}
+})()
 
-module.exports = function(){
-    return new Udp()
-}
+module.exports = udp

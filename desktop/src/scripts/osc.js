@@ -1,38 +1,34 @@
-const osc = require('node-osc')
-const helpers = require('./helpers')
+const osc = (() => {
+    const osc = require('node-osc')
+    const helpers = require('./helpers')
 
-class Osc {
-    constructor() {
-        this.config = require('./config.json')
-        this.config.clients = [... new Set(this.config.clients)]
-        this.clients = this.config.clients.map(client => {
+    let clients = []
+
+    const init = clis => {
+        clients = [... new Set(clis)].map(client => {
             const {host, port} = helpers.parseClient(client)
             return new osc.Client(host, port)
         })
     }
 
-    logClients() {
+    const logClients = () => {
         console.log('OSC clients:')
-        this.clients.forEach((client, i) => console.log(`#${i} ${client.host}:${client.port}`))
+        clients.forEach((client, i) => console.log(`#${i} ${client.host}:${client.port}`))
     }
 
-    addClient(client) {
-        if(!this.config.clients.includes(client)) {
-            const {host, port} = helpers.parseClient(client)
-            this.clients.push(new osc.Client(host, port))
-            this.config.clients.push(client)
-        }
-        this.logClients()
+    const addClient = client => {
+        const {host, port} = helpers.parseClient(client)
+        clients.push(new osc.Client(host, port))
+        logClients()
     }
 
-    removeClient(clientId) {
-        this.clients.splice(clientId, 1)
-        this.config.clients.splice(clientId, 1)
-        helpers.updateConfig(this.config)
-        this.logClients()
+    const removeClient = clientId => {
+        clients.splice(clientId, 1)
+        config.clients.splice(clientId, 1)
+        logClients()
     }
 
-    parseArg(arg) {
+    const parseArg = arg => {
         // Float
         if (/\b\d+f\b/.test(arg)) {
             return { type: 'f', value: parseInt(arg) / 10.0 }
@@ -49,7 +45,7 @@ class Osc {
         return `${arg}`
     }
 
-    parseMsg(data) {
+    const parseMsg = data => {
         const [clientPath, ...args] = data.split(';')
         const [clientArg, path] = clientPath.split('#')
         const clientIds = clientArg === '' ? [0] : 
@@ -58,23 +54,28 @@ class Osc {
         return {
             clientIds,
             path,
-            args: args.filter(arg => arg !== '').map(arg => this.parseArg(arg))
+            args: args.filter(arg => arg !== '').map(arg => parseArg(arg))
         }
     }
     
-    send(data) {
-        const {clientIds, path, args} = this.parseMsg(`${data}`)
+    const send = data => {
+        const {clientIds, path, args} = parseMsg(`${data}`)
         const oscMsg = new osc.Message(`/${path}`)
         args.forEach(arg => oscMsg.append(arg))
 
         clientIds.forEach(clientId => {
-            this.clients[clientId].send(oscMsg, err => {
+            clients[clientId].send(oscMsg, err => {
                 if(err) console.warn(err)
             })
         })
     }
-}
 
-module.exports = function(config){
-    return new Osc(config)
-}
+    return {
+        init,
+        addClient,
+        removeClient,
+        send
+    }
+})()
+
+module.exports = osc

@@ -6,6 +6,11 @@
     box-sizing: border-box;
 }
 
+html, body{
+    width: 100%;
+    height: 100%;
+}
+
 body {
     background-color: #29272b;
     color: #eee;
@@ -13,7 +18,6 @@ body {
     font-size: 14px;
     line-height: 18px;
     padding: 16px 8px;
-    width: 250px;
     overflow: hidden; 
     -webkit-app-region: drag; 
     transition: background-color 500ms;

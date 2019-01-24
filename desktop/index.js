@@ -1,13 +1,13 @@
 const {app, BrowserWindow} = require('electron')
-const config = require('./src/config.json')
 
 app.win = null
+app.config = require('./src/config.json')
 
 app.on('ready', () => {
 	app.win = new BrowserWindow({
 		// titleBarStyle: 'hidden',
-		width: config.width,
-		height: config.height,
+		width: app.config.width,
+		height: app.config.height,
 		minWidth: 320,
 		minHeight: 160,
 		frame: process.platform === 'win32',
@@ -28,5 +28,7 @@ app.on('ready', () => {
 	app.on('window-all-closed', () => {
 		app.quit()
 	})
+
+    // app.on('resize', () => update config.json )
 })
 
