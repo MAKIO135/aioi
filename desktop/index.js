@@ -1,4 +1,5 @@
 const {app, BrowserWindow} = require('electron')
+const helpers = require('./src/scripts/helpers')
 
 app.win = null
 app.config = require('./src/config.json')
@@ -29,6 +30,11 @@ app.on('ready', () => {
 		app.quit()
 	})
 
-    // app.on('resize', () => update config.json )
+	app.on('resize', () => {
+		// update config.json
+		// app.config.width = win.getWidth()
+		// app.config.height = win.getHeight()
+		// helpers.updateConfig(app.config)
+	})
 })
 

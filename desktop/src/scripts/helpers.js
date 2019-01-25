@@ -22,4 +22,32 @@ module.exports = {
         console.error(`Could not parse <host:port>: ${data}`)
         process.exit(0)
     },
+
+    focusContentEditable: (el, startOffset, endOffset) => {
+        let range
+        let selection
+    
+        // Create a range (a range is a like the selection but invisible)
+        range = document.createRange()
+    
+        if (startOffset !== undefined && endOffset !== undefined) {
+            range.setStart(el.childNodes[0], startOffset)
+            range.setEnd(el.childNodes[0], endOffset)
+        } else {
+            // Select the entire contents of the element with the range
+            range.selectNodeContents(el)
+    
+            // Collapse the range to the end point. false means collapse to end rather than the start
+            range.collapse(false)
+        }
+    
+        // Get the selection object (allows you to change selection)
+        selection = window.getSelection()
+    
+        // Remove any selections already made
+        selection.removeAllRanges()
+    
+        // Make the range you have just created the visible selection
+        selection.addRange(range)
+    }
 }
