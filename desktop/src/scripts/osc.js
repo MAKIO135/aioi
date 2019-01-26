@@ -4,21 +4,14 @@ const osc = (() => {
 
     let clients = []
 
-    const init = clis => {
-        clients = [... new Set(clis)].map(client => {
-            const {host, port} = helpers.parseClient(client)
-            return new osc.Client(host, port)
-        })
-    }
-
     const logClients = () => {
         console.log('OSC clients:')
         clients.forEach((client, i) => console.log(`#${i} ${client.host}:${client.port}`))
     }
 
-    const addClient = client => {
-        const {host, port} = helpers.parseClient(client)
-        clients.push(new osc.Client(host, port))
+    const addClient = host => {
+        const {ip, port} = helpers.parseHost(host)
+        clients.push(new osc.Client(ip, port))
         logClients()
     }
 
