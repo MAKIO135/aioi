@@ -1,7 +1,7 @@
-const udp = (() => {
-    const dgram = require('dgram')
-    const server = dgram.createSocket('udp4')
+const dgram = require('dgram')
+const server = dgram.createSocket('udp4')
 
+const udp = (() => {
     server.on('error', err => {
         console.warn(`udp error: \n${err.stack}`)
         server.close()

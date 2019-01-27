@@ -1,6 +1,6 @@
 {
   "name": "orca-osc-bridge",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Supercharge Orca's UDP operator to send complex OSC message",
   "homepage": "https://github.com/makio135/orca-osc-bridge#readme",
   "main": "index.js",

@@ -3,121 +3,103 @@ const udp = require('./udp')
 const osc = require('./osc')
 const helpers = require('./helpers')
 
+function validateHost(el) {
+    let host = el.innerText.trim()
+    const index = parseInt(el.dataset.index)
+    console.log({host, index})
+
+    // Remove host if empty
+    if(host === '') {
+        if(index < hosts.length) {
+            hosts.splice(index, 1)
+            osc.removeClient(index)
+            app.config.hosts = hosts
+            helpers.updateConfig(app.config)
+        }
+
+        helpers.unfocus(el)
+        el.parentElement.remove()
+
+        // Reindex all
+        document.querySelectorAll('ul#hosts li p.index:not([data-action])').forEach((el, i) => {
+            el.innerText = i.toString(36).toUpperCase()
+        })
+
+        return
+    }
+
+    // check ip:port host format
+    host = helpers.formatHost(host)
+    if(!host) {
+        helpers.displayTooltip(el, 'Wrong format')
+        return
+    }
+
+    // Port between 1000 and 99999
+    const [ip, port] = host.split(':')
+    if(port < 1000 || port > 99999) {
+        helpers.displayTooltip(el, 'Wrong port number')
+        return
+    }
+    
+    // Check if host already exists
+    if(hosts.indexOf(host) >= 0 && host !== el.dataset.host) {
+        helpers.displayTooltip(el, 'Already exists')
+        return
+    }
+
+    // Unfocus and hide tooltip
+    helpers.unfocus(el)
+    helpers.hideTooltip()
+    
+    // Add to hosts only if new
+    if(host !== el.dataset.host) {
+        // Update or add host
+        if(index < hosts.length) {
+            hosts.splice(index, 1, host)
+            osc.updateClient(index, ip, port)
+        }
+        else {
+            hosts.push(host)
+            osc.createClient(ip, port)
+        }
+        app.config.hosts = hosts
+        helpers.updateConfig(app.config)
+        el.dataset.host = host
+        el.innerText = host
+
+    }
+}
 
 function attachListener(el) {
     el.addEventListener('keydown', e => {
+        lastKey = e.key
+
         if(e.key === 'Enter') {
             e.preventDefault()
 
-            if(el.classList.contains('host')){
-                let host = el.innerText
-
-                // check ip:port host format
- 
-                // port between 1000 and 99999
-                
-                // check if host already exists
-                if(hosts.indexOf(host) >= 0) {
-                    displayTooltip(el, 'Already exists')
-                    return
-                }
-
-                // add to hosts
-                // hosts.push(host)
-
-                // create OSC Client
-                // osc.addClient(host)
+            if(el.classList.contains('host')) {
+                validateHost(el)
             }
-            else if(el.classList.contains('msg')){
+            else if(el.classList.contains('msg')) {
+                const index = parseInt(el.dataset.index)
                 // parse msg
-                // osc.sendMessage
+                const oscMsg = helpers.parseInputMsg(el.innerText)
+                osc.send([index], oscMsg)
+                helpers.bangHost(el)
             }
         }
-    })
-
-    el.addEventListener('keyup', e => {
-        if(e.key.length === 1)
-        console.log('keyup', el.innerText)
-        //onKeyDown(el, e)
     })
 
     el.addEventListener('blur', e => {
-        if(el.classList.contains('host')) {
-            const input = e.target.innerText
-            console.log(input)
-
-            if(hosts.indexOf(input) >= 0) {
-                displayTooltip(el, 'Already exists')
-
-                const start = el.innerText.indexOf(':') + 1
-                const end = el.innerText.length
-                helpers.focusContentEditable(el, start, end)
-                return
-            }
-            else {
-                hosts.push(input)
-                osc.addClient(input)
-                tooltip.classList.remove('visible')
-            }
+        e.preventDefault()
+        if(lastKey !== 'Enter' && el.classList.contains('host')) {
+            validateHost(el)    
         }
     })
 }
 
-function onKeyDown(el, e) {
-    // Enter key
-    if(e.which === 13) {
-        e.preventDefault()
-
-        if(el.classList.contains('host')) {
-            if(hosts.indexOf(el.innerText) >= 0) {
-                displayTooltip(el, 'Already exists')
-                return
-            }
-
-            // Unfocus input
-            el.blur()
-
-            // Remove any selections already made
-            const selection = window.getSelection()
-            selection.removeAllRanges()
-
-            // Empty value, remove li
-            if(el.innerText === '') {
-                el.parentElement.remove()
-
-                // Reindex all
-                document.querySelectorAll('ul#hosts li p.index:not([data-action])').forEach((el, i) => {
-                    el.innerText = i.toString(36).toUpperCase()
-                })
-            }
-        }
-        else if(el.classList.contains('msg')) {
-            el.parentElement.classList.add('active')
-
-            // Timeout needed for transition
-            if(el.timeout) clearTimeout(el.timeout)
-            el.timeout = setTimeout(() => {
-                el.parentElement.classList.remove('active')
-            }, 0)
-
-            const hostID = parseInt(el.parentElement.querySelector('p.index').innerText, 36)
-            console.log({ hostID, msg: el.innerText })
-
-            // TODO: send msg
-            // osc.send(msg)
-        }
-    }
-    else if(el.classList.contains('host')) {
-        if(hosts.indexOf(input) >= 0) {
-            displayTooltip(el, 'Already exists')
-        }
-        else {
-            tooltip.classList.remove('visible')
-        }
-    }
-}
-
-function addHost(host, selected = true) {
+function addHostLi(host, selected = true) {
     if(tooltip.classList.contains('visible')) return
     
     let index
@@ -126,15 +108,19 @@ function addHost(host, selected = true) {
     }
     else {
         host = hosts[hosts.length - 1] || '127.0.0.1:8000'
-        index = hosts.length.toString(36).toUpperCase()
+        index = hosts.length
     }
 
     const li = document.createElement('li')
-    li.innerHTML = `<p class="index">${index}</p><p class="host" contenteditable="true">${host}</p><p class="msg" contenteditable="true">/</p>`
+    li.innerHTML = [
+        `<p class="index">${index.toString(36).toUpperCase()}</p>`,
+        `<p class="host" data-index="${index}" data-host="${host}" contenteditable="true">${host}</p>`,
+        `<p class="msg" data-index="${index}" contenteditable="true">/</p>`
+    ].join('')
     li.querySelectorAll('p[contenteditable]').forEach(el => attachListener(el))
     hostsList.insertBefore(li, addButton.parentElement)
 
-    if(selected){
+    if(selected) {
         const el = li.querySelector('p.host')
         const start = host.indexOf(':') + 1
         const end = host.length        
@@ -142,34 +128,33 @@ function addHost(host, selected = true) {
     }
 }
 
-function displayTooltip(el, text) {
-    const pos = el.getBoundingClientRect()
-    tooltip.innerText = text
-
-    tooltip.style.left = `${pos.x}px`
-    tooltip.style.top = `${pos.y + 20}px`
-
-    tooltip.classList.add('visible')
-}
-
 const hostsList = document.getElementById('hosts')
-const tooltip = document.getElementById('tooltip')
 const addButton = document.querySelector('[data-action="add"]')
 
-addButton.addEventListener('click', () => addHost())
+// Used to prevent checking blur event after 'Enter'
+let lastKey = undefined
+
+addButton.addEventListener('click', e => addHostLi())
 document.querySelector('#shortcuts p').addEventListener('click', () => shortcuts.classList.toggle('open'))
 
 
-let hosts = [... new Set(app.config.hosts.map(host => host.trim()).filter(host => /\b(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]):[0-9]{4,5}\b/.test(host)))]
+let hosts = [... new Set(app.config.hosts.map(helpers.formatHost).filter(d => d))]
 
 hosts.forEach(host => {
-    addHost(host, false)
-    osc.addClient(hosts)
+    addHostLi(host, false)
+    const [ip, port] = host.split(':')
+    osc.createClient(ip, port)
 })
 
 udp.bind(app.config.ORCA_PORT)
 
 udp.on('message', msg => {
     console.log(`udp got: ${msg}`)
-    osc.send(msg)
+    const {indexes, inputMsg, oscMsg} = helpers.parseOrcaMsg(msg)
+    osc.send(indexes, oscMsg)
+    indexes.forEach(index => {
+        const el = document.querySelector(`.msg[data-index="${index}"]`)
+        el.innerText = inputMsg
+        helpers.bangHost(el)
+    })
 })
