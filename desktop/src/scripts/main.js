@@ -6,7 +6,6 @@ const helpers = require('./helpers')
 function validateHost(el) {
     let host = el.innerText.trim()
     const index = parseInt(el.dataset.index)
-    console.log({host, index})
 
     // Remove host if empty
     if(host === '') {
@@ -21,13 +20,15 @@ function validateHost(el) {
         el.parentElement.remove()
 
         // Reindex all
-        document.querySelectorAll('ul#hosts li p.index:not([data-action])').forEach((el, i) => {
-            el.innerText = i.toString(36).toUpperCase()
+        document.querySelectorAll('ul#hosts li').forEach((li, i) => {
+            li.querySelector('.index').innerText = i.toString(36).toUpperCase()
+            li.querySelector('.host').dataset.host = i
+            li.querySelector('.msg').dataset.host = i
         })
 
         return
     }
-
+    
     // check ip:port host format
     host = helpers.formatHost(host)
     if(!host) {
@@ -48,12 +49,15 @@ function validateHost(el) {
         return
     }
 
+    el.innerText = host
+
     // Unfocus and hide tooltip
     helpers.unfocus(el)
     helpers.hideTooltip()
     
     // Add to hosts only if new
     if(host !== el.dataset.host) {
+        console.log('test')
         // Update or add host
         if(index < hosts.length) {
             hosts.splice(index, 1, host)
@@ -66,8 +70,6 @@ function validateHost(el) {
         app.config.hosts = hosts
         helpers.updateConfig(app.config)
         el.dataset.host = host
-        el.innerText = host
-
     }
 }
 
