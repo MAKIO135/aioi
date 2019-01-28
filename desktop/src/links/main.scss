@@ -27,31 +27,30 @@ ul {
     list-style: none;
     // width: 300px;
 
-    &#hosts {
-        li {
-            // &:not(:last-child) {
-            //     .drag-handle {
-            //
-            //         &::after {
-            //             content: "⋮⋮";
-            //         }
-            //
-            //         font-size: 20px;
-            //         font-weight: bold;
-            //         position: absolute;
-            //         top: 50%;
-            //         right: 8px;
-            //         cursor: -webkit-grab;
-            //         transform: translateY(-50%);
-            //         color: #65606c;
-            //
-            //         &:hover {
-            //             color: white;
-            //         }
-            //     }
-            // }
-        }
-    }
+    // &#hosts {
+    //     li {
+    //         &:not(:last-child) {
+    //             .drag-handle {
+    //                 &::after {
+    //                     content: "⋮⋮";
+    //                 }
+            
+    //                 font-size: 20px;
+    //                 font-weight: bold;
+    //                 position: absolute;
+    //                 top: 50%;
+    //                 right: 8px;
+    //                 cursor: -webkit-grab;
+    //                 transform: translateY(-50%);
+    //                 color: #65606c;
+            
+    //                 &:hover {
+    //                     color: white;
+    //                 }
+    //             }
+    //         }
+    //     }
+    // }
 
     li {
         position: relative;
