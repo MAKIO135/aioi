@@ -148,8 +148,6 @@ hosts.forEach(host => {
     osc.createClient(ip, port)
 })
 
-udp.bind(app.config.ORCA_PORT)
-
 udp.on('message', msg => {
     console.log(`udp got: ${msg}`)
     const {indexes, inputMsg, oscMsg} = helpers.parseOrcaMsg(msg)
@@ -160,3 +158,5 @@ udp.on('message', msg => {
         helpers.bangHost(el)
     })
 })
+
+udp.bind(app.config.ORCA_PORT)

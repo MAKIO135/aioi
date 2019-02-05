@@ -1,19 +1,19 @@
 const fs = require('fs')
 const osc = require('node-osc')
 
-const tooltip = document.getElementById('tooltip')
-
 function displayTooltip(el, text) {
     const pos = el.getBoundingClientRect()
+    const tooltip = document.getElementById('tooltip')
     tooltip.innerText = text
-
+    
     tooltip.style.left = `${pos.x}px`
     tooltip.style.top = `${pos.y + 18}px`
-
+    
     tooltip.classList.add('visible')
 }
 
 function hideTooltip() {
+    const tooltip = document.getElementById('tooltip')
     tooltip.classList.remove('visible')
 }
 
@@ -122,15 +122,18 @@ function parseOrcaMsg(data) {
         return `${arg}`
     }
 
-    const [clientPath, ...args] = data.split(';')
-    const [clientArg, path] = clientPath.split('#')
-    const indexes = clientArg === '' ? [0] : 
-        clientArg.split('').map(d=>parseInt(d,36))
+    const [clientPath, ...args] = `${data}`.split(';')
+
+    let indexes = [0]
+    let path = clientPath
+    if(clientPath.includes('#')) {
+        const [clientArg, pathArg] = clientPath.split('#')
+        indexes = clientArg.split('').map(d=>parseInt(d,36))
+        path = pathArg
+    }
     
     const inputMsg = [`/${path}`]
     const oscMsg = new osc.Message(`/${path}`)
-
-    // console.log(args.map(parseOrcaArg))
 
     args.map(parseOrcaArg)
         .forEach(arg => {
