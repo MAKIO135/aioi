@@ -137,7 +137,7 @@ function parseOrcaMsg(data) {
 
     args.map(parseOrcaArg)
         .forEach(arg => {
-            inputMsg.push(arg.value || arg)
+            inputMsg.push(arg.value !== undefined ? arg.value : arg)
             oscMsg.append(arg)
         })
 
