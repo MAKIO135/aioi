@@ -12,8 +12,8 @@ html, body{
 }
 
 body {
-    background-color: #29272b;
-    color: #eee;
+    background-color: var(--background) !important;
+    color: var(--b_high) !important;
     font-family: 'Fira Mono', monospace;
     font-size: 14px;
     line-height: 18px;
@@ -25,32 +25,6 @@ body {
 
 ul {
     list-style: none;
-    // width: 300px;
-
-    // &#hosts {
-    //     li {
-    //         &:not(:last-child) {
-    //             .drag-handle {
-    //                 &::after {
-    //                     content: "⋮⋮";
-    //                 }
-            
-    //                 font-size: 20px;
-    //                 font-weight: bold;
-    //                 position: absolute;
-    //                 top: 50%;
-    //                 right: 8px;
-    //                 cursor: -webkit-grab;
-    //                 transform: translateY(-50%);
-    //                 color: #65606c;
-            
-    //                 &:hover {
-    //                     color: white;
-    //                 }
-    //             }
-    //         }
-    //     }
-    // }
 
     li {
         position: relative;
@@ -60,13 +34,13 @@ ul {
         padding: 4px;
 
         &.active {
-            background-color: transparentize(#e4755f, .8);
+            background-color: var(--b_inv);
             transition: none;
         }
 
         .index {
             display: inline-block;
-            color: #65606c;
+            color: var(--b_med);
 
             &:before {
                 content: "[";
@@ -78,7 +52,7 @@ ul {
 
             &[data-action="add"] {
                 &:hover {
-                    color: white;
+                    color: var(--b_med);
                     cursor: pointer;
                 }
             }
@@ -86,30 +60,30 @@ ul {
 
         .host {
             display: inline-block;
-            color: #e4755f;
+            color: var(--b_inv);
             margin: 0 1ch;
             min-width: 20ch;
 
             &:hover,
             &:focus {
                 outline: none;
-                color: #dddddd;
+                color: var(--b_high);
             }
 
             &::selection {
-                background-color: rgba(255,255,255,.1);
+                background-color: var(--f_low);
             }
         }
 
         .msg {
             margin-left: 4ch;
-            color: #65606c;
+            color: var(--b_med);
             margin-right: 32px;
 
             &:hover,
             &:focus {
                 outline: none;
-                color: #dddddd;
+                color: var(--b_high);
             }
         }
     }
@@ -121,12 +95,12 @@ ul {
     p {
         display: inline-block;
         position: relative;
-        color: #65606c;
+        color: var(--b_med);
         cursor: pointer;
         margin: 1em auto;
 
         &:hover {
-            color: white;
+            color: var(--f_high);
         }
 
         span {
@@ -168,7 +142,7 @@ ul {
 }
 
 kbd {
-    color: #65606c;
+    color: var(--b_med);
 
     &:before {
         content: "[";
