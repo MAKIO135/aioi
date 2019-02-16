@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300">
+    <style type="text/css">
+        path{
+            fill:none;
+            stroke:#EEEEEE;
+            stroke-width:20;
+        }
+    </style>
+    <rect x="0" width="300" height="300" fill="#000"/>
+    <path d="M40,55h220"/>
+    <path d="M70,260L150,95L230,260"/>
+</svg>
