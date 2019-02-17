@@ -43,7 +43,8 @@ function validateHost(el) {
         el.parentElement.remove()
 
         // Reindex all
-        document.querySelectorAll('ul#hosts li:not([data-action])').forEach((li, i) => {
+        document.querySelectorAll('ul#hosts li').forEach((li, i) => {
+            if(li.querySelector('p').dataset.action) {return}
             li.querySelector('.index').innerText = i.toString(36).toUpperCase()
             li.querySelector('.host').dataset.host = i
             li.querySelector('.msg').dataset.host = i
