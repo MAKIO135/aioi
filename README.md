@@ -34,3 +34,6 @@ Electron app using [ORCΛ](https://wiki.xxiivv.com/#orca)'s UDP operator to send
 
 - send to multiple hosts:  
     `;2a#foo` would send `/foo` to the third and tenth hosts in Λioi
+
+
+This application supports the [Ecosystem Theme](https://github.com/hundredrabbits/Themes).
