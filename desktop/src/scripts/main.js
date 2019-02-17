@@ -46,8 +46,8 @@ function validateHost(el) {
         document.querySelectorAll('ul#hosts li').forEach((li, i) => {
             if(li.querySelector('p').dataset.action) {return}
             li.querySelector('.index').innerText = i.toString(36).toUpperCase()
-            li.querySelector('.host').dataset.host = i
-            li.querySelector('.msg').dataset.host = i
+            li.querySelector('.host').dataset.index = i
+            li.querySelector('.msg').dataset.index = i
         })
 
         return

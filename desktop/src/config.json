@@ -1,10 +1,10 @@
 {
-    "width": 379,
-    "height": 364,
+    "width": 366,
+    "height": 330,
     "ORCA_PORT": 49160,
     "hosts": [
         "127.0.0.1:8001",
-        "127.0.0.1:8002"
+        "127.0.0.1:12000"
     ],
     "displayShortcuts": true
 }
