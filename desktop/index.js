@@ -1,22 +1,19 @@
 const {app, BrowserWindow} = require('electron')
-const helpers = require('./src/scripts/helpers')
 
 app.win = null
 app.config = require('./src/config.json')
 
 app.on('ready', () => {
 	app.win = new BrowserWindow({
-		titleBarStyle: 'hidden',
 		width: app.config.width,
 		height: app.config.height,
 		minWidth: 250,
 		minHeight: 160,
-		frame: process.platform === 'win32',
 		resizable: true,
 		icon: __dirname + '/icon.ico',
-		// transparent: process.platform !== 'win32',
-		skipTaskbar: process.platform !== 'win32',
-		autoHideMenuBar: process.platform !== 'win32'
+		frame: process.platform !== 'darwin',
+		skipTaskbar: process.platform === 'darwin',
+		autoHideMenuBar: process.platform === 'darwin'
 	})
 
 	app.win.loadFile('index.html')
