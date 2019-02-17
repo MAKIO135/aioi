@@ -1,6 +1,7 @@
 # Λioi
-Electron app supercharging [ORCΛ](https://wiki.xxiivv.com/#orca)'s UDP operator to send complex OSC message
+Electron app using [ORCΛ](https://wiki.xxiivv.com/#orca)'s UDP operator to send complex OSC message to multiple hosts.
 
+![Λioi](aioi.gif)
 
 - path:  
     `;foo` would send `/foo` to your first host  
@@ -31,5 +32,5 @@ Electron app supercharging [ORCΛ](https://wiki.xxiivv.com/#orca)'s UDP operator
     `;2#foo` would send `/foo` to the third host in Λioi  
     `;a#foo;2f` would send `/foo 0.2` to the tenth host in Λioi
 
-- sending message to multiple hosts:  
+- send to multiple hosts:  
     `;2a#foo` would send `/foo` to the third and tenth hosts in Λioi
