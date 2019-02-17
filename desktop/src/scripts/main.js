@@ -26,11 +26,11 @@ hosts.forEach(host => {
 })
 
 function validateHost(el) {
-    let host = el.innerText.trim()
+    const inputString = el.innerText.trim()
     const index = parseInt(el.dataset.index)
 
     // Remove host if empty
-    if(host === '') {
+    if(inputString === '') {
         if(index < hosts.length) {
             hosts.splice(index, 1)
             osc.removeClient(index)
@@ -40,6 +40,7 @@ function validateHost(el) {
         }
 
         helpers.unfocus(el)
+        helpers.hideTooltip()
         el.parentElement.remove()
 
         // Reindex all
@@ -49,14 +50,15 @@ function validateHost(el) {
             li.querySelector('.host').dataset.index = i
             li.querySelector('.msg').dataset.index = i
         })
-
+        
         return
     }
     
     // check ip:port host format
-    host = helpers.formatHost(host)
+    const host = helpers.formatHost(inputString)
     if(!host) {
         helpers.displayTooltip(el, 'Wrong format')
+        helpers.focusContentEditable(el, inputString.length, inputString.length)
         return
     }
 
@@ -64,15 +66,20 @@ function validateHost(el) {
     const [ip, port] = host.split(':')
     if(port < 1000 || port > 99999) {
         helpers.displayTooltip(el, 'Wrong port number')
+        const start = host.indexOf(':') + 1
+        const end = host.length
+        helpers.focusContentEditable(el, start, end)
         return
     }
     
     // Check if host already exists
-    if(hosts.indexOf(host) >= 0 && host !== el.dataset.host) {
+    if(hosts.indexOf(host) >= 0 && hosts.indexOf(host) !== index) {
         helpers.displayTooltip(el, 'Already exists')
+        helpers.focusContentEditable(el, inputString.length, inputString.length)
         return
     }
 
+    // make sure host is well formated
     el.innerText = host
 
     // Unfocus and hide tooltip
@@ -81,7 +88,6 @@ function validateHost(el) {
     
     // Add to hosts only if new
     if(host !== el.dataset.host) {
-        console.log('test')
         // Update or add host
         if(index < hosts.length) {
             hosts.splice(index, 1, host)
@@ -149,7 +155,7 @@ function addHostLi(host, selected = true) {
     if(selected) {
         const el = li.querySelector('p.host')
         const start = host.indexOf(':') + 1
-        const end = host.length        
+        const end = host.length
         helpers.focusContentEditable(el, start, end)
     }
 }
