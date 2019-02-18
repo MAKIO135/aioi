@@ -3,6 +3,8 @@ const udp = require('./udp')
 const osc = require('./osc')
 const helpers = require('./helpers')
 
+const config = helpers.loadConfig()
+
 const theme = new Theme({background: '#000000', f_high: '#ffffff', f_med: '#777777', f_low: '#444444', f_inv: '#000000', b_high: '#eeeeee', b_med: '#72dec2', b_low: '#444444', b_inv: '#ffb545'})
 theme.install(document.body)
 theme.start()
@@ -11,13 +13,14 @@ const hostsList = document.getElementById('hosts')
 const addButton = document.querySelector('[data-action="add"]')
 const shortcuts = document.getElementById('shortcuts')
 addEventListener('load', e => {
-    if(app.config.displayShortcuts) shortcuts.classList.toggle('open')
+    app.win.setSize(config.width, config.height)
+    if(config.displayShortcuts) shortcuts.classList.toggle('open')
 })
 
 // Used to prevent checking blur event after 'Enter'
 let lastKey = undefined
 
-let hosts = [... new Set(app.config.hosts.map(helpers.formatHost).filter(d => d))]
+let hosts = [... new Set(config.hosts.map(helpers.formatHost).filter(d => d))]
 
 hosts.forEach(host => {
     addHostLi(host, false)
@@ -34,8 +37,8 @@ function validateHost(el) {
         if(index < hosts.length) {
             hosts.splice(index, 1)
             osc.removeClient(index)
-            app.config.hosts = hosts
-            helpers.updateConfig(app.config)
+            config.hosts = hosts
+            // helpers.updateConfig(config)
             app.win.setSize(app.win.getSize()[0], shortcuts.getBoundingClientRect().bottom)
         }
 
@@ -97,8 +100,8 @@ function validateHost(el) {
             hosts.push(host)
             osc.createClient(ip, port)
         }
-        app.config.hosts = hosts
-        helpers.updateConfig(app.config)
+        config.hosts = hosts
+        helpers.updateConfig(config)
         el.dataset.host = host
     }
 }
@@ -163,10 +166,10 @@ function addHostLi(host, selected = true) {
 // Events
 addEventListener('resize', helpers.debounce(e => {
     // update config.json
-    app.config.width = innerWidth
-    app.config.height = innerHeight
-    app.config.displayShortcuts = shortcuts.classList.contains('open')
-    helpers.updateConfig(app.config)
+    config.width = innerWidth
+    config.height = innerHeight
+    config.displayShortcuts = shortcuts.classList.contains('open')
+    helpers.updateConfig(config)
 }, 1000))
 
 addButton.addEventListener('click', e => {
@@ -177,7 +180,10 @@ addButton.addEventListener('click', e => {
 shortcuts.querySelector('p').addEventListener('click', () => {
     shortcuts.classList.toggle('open')
     app.win.setSize(app.win.getSize()[0], shortcuts.getBoundingClientRect().bottom)
-    helpers.updateConfig(app.config)
+    config.width = innerWidth
+    config.height = innerHeight
+    config.displayShortcuts = shortcuts.classList.contains('open')
+    helpers.updateConfig(config)
 })
 
 udp.on('message', msg => {
@@ -191,4 +197,4 @@ udp.on('message', msg => {
     })
 })
 
-udp.bind(app.config.ORCA_PORT)
+udp.bind(config.ORCA_PORT)

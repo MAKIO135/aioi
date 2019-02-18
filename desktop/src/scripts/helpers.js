@@ -2,12 +2,12 @@ const fs = require('fs')
 const osc = require('node-osc')
 
 
-const formatHost = (host) => {
+const formatHost = host => {
     host = host.match(/\b(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]):[0-9]+\b/)
     return host ? host[0] : false
 }
 
-const parseInputMsg = (data) => {
+const parseInputMsg = data => {
     const parseInputArg = arg => {
         // Float
         if (/\b\d+\.d?\b/.test(arg) || /\b\d?\.d+\b/.test(arg)) {
@@ -32,7 +32,7 @@ const parseInputMsg = (data) => {
     return oscMsg
 }
 
-const parseOrcaMsg = (data) => {
+const parseOrcaMsg = data => {
     const parseOrcaArg = arg => {
         // Float
         if (/\b\d+f\b/.test(arg)) {
@@ -104,7 +104,7 @@ const focusContentEditable = (el, startOffset, endOffset) => {
     selection.addRange(range)
 }
 
-const unfocus = (el) => {
+const unfocus = el => {
     // Unfocus input
     el.blur()
 
@@ -129,7 +129,7 @@ const hideTooltip = () => {
     tooltip.classList.remove('visible')
 }
 
-const bangHost = (el) => {
+const bangHost = el => {
     // Timeout needed for transition
     el.parentElement.classList.add('active')
     if(el.timeout) clearTimeout(el.timeout)
@@ -138,15 +138,25 @@ const bangHost = (el) => {
     }, 0)
 }
 
-const updateConfig = (data) => {
-    fs.writeFile('./src/config.json', JSON.stringify(data,null,4), 'utf8', error => {
-        if(error) {
-            console.log({ error })
-            return
+const loadConfig = () => {
+    if(!localStorage.getItem('config')) {
+        const initialConfig = {
+            ORCA_PORT: 49160,
+            width: 300,
+            height: 330,
+            hosts: [
+                '127.0.0.1:8000',
+                '127.0.0.1:12000'
+            ],
+            displayShortcuts: true
         }
+        localStorage.setItem('config', JSON.stringify(initialConfig))
+    }
+    return JSON.parse(localStorage.getItem('config'))
+}
 
-        console.log('config.json updated.')
-    })
+const updateConfig = data => {
+    localStorage.setItem('config', JSON.stringify(data))
 }
 
 const debounce = (fn, ms = 0) => {
@@ -175,6 +185,7 @@ module.exports = {
     displayTooltip,
     hideTooltip,
     bangHost,
+    loadConfig,
     updateConfig,
     debounce
 }
