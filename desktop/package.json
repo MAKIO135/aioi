@@ -1,6 +1,6 @@
 {
   "name": "aioi",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Supercharge Orca's UDP operator to send complex OSC message",
   "homepage": "https://github.com/makio135/aioi#readme",
   "main": "index.js",
