@@ -9,6 +9,7 @@
 html, body{
     width: 100%;
     height: 100%;
+    -webkit-app-region: no-drag;
 }
 
 body {
@@ -19,8 +20,19 @@ body {
     line-height: 18px;
     padding: 16px 8px;
     overflow: hidden; 
-    -webkit-app-region: drag; 
     transition: background-color 500ms;
+}
+
+#drag-zone {
+    -webkit-app-region: drag;
+}
+
+p {
+    -webkit-app-region: no-drag;
+
+    &::selection {
+        background-color: rgba(173, 173, 173, 0.3);
+    }
 }
 
 ul {
@@ -69,10 +81,6 @@ ul {
                 outline: none;
                 color: var(--b_high);
             }
-
-            &::selection {
-                background-color: var(--f_low);
-            }
         }
 
         .msg {
@@ -91,6 +99,10 @@ ul {
 
 #shortcuts {
     text-align: center;
+
+    ::selection {
+        background-color: var(--background) !important;
+    }
 
     p {
         display: inline-block;

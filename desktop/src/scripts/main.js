@@ -12,10 +12,7 @@ theme.start()
 const hostsList = document.getElementById('hosts')
 const addButton = document.querySelector('[data-action="add"]')
 const shortcuts = document.getElementById('shortcuts')
-addEventListener('load', e => {
-    app.win.setContentSize(config.width, config.height)
-    if(config.displayShortcuts) shortcuts.classList.toggle('open')
-})
+const dragZone = document.getElementById('drag-zone')
 
 // Used to prevent checking blur event after 'Enter'
 let lastKey = undefined
@@ -164,6 +161,11 @@ function addHostLi(host, selected = true) {
 }
 
 // Events
+addEventListener('load', e => {
+    app.win.setContentSize(config.width, config.height)
+    if(config.displayShortcuts) shortcuts.classList.toggle('open')
+})
+
 addEventListener('resize', helpers.debounce(e => {
     // update config.json
     const dimensions = app.win.getContentSize()

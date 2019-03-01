@@ -8,10 +8,10 @@ app.on('ready', () => {
 		height: 330,
 		minWidth: 250,
 		minHeight: 160,
-		resizable: true,
 		icon: __dirname + '/icon.ico',
-		frame: process.platform !== 'darwin',
-		skipTaskbar: true,
+		frame: false,
+		resizable: true,
+		skipTaskbar: false,
 		autoHideMenuBar: true
 	})
 
