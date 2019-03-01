@@ -10,8 +10,9 @@ app.on('ready', () => {
 		minHeight: 160,
 		resizable: true,
 		icon: __dirname + '/icon.ico',
-		frame: false,
-		autoHideMenuBar: true
+		frame: process.platform !== 'darwin',
+		skipTaskbar: process.platform === 'darwin',
+		autoHideMenuBar: process.platform === 'darwin'
 	})
 
 	app.win.loadFile('index.html')

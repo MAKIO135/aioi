@@ -166,8 +166,9 @@ function addHostLi(host, selected = true) {
 // Events
 addEventListener('resize', helpers.debounce(e => {
     // update config.json
-    config.width = innerWidth
-    config.height = innerHeight
+    const dimensions = app.win.getSize()
+    config.width = dimensions[0]
+    config.height = dimensions[1]
     config.displayShortcuts = shortcuts.classList.contains('open')
     helpers.updateConfig(config)
 }, 1000))
