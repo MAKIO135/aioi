@@ -35,7 +35,6 @@ function validateHost(el) {
             hosts.splice(index, 1)
             osc.removeClient(index)
             config.hosts = hosts
-            // helpers.updateConfig(config)
             app.win.setContentSize(app.win.getContentSize()[0], shortcuts.getBoundingClientRect().bottom)
         }
 
