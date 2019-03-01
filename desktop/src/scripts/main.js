@@ -13,7 +13,7 @@ const hostsList = document.getElementById('hosts')
 const addButton = document.querySelector('[data-action="add"]')
 const shortcuts = document.getElementById('shortcuts')
 addEventListener('load', e => {
-    app.win.setSize(config.width, config.height)
+    app.win.setContentSize(config.width, config.height)
     if(config.displayShortcuts) shortcuts.classList.toggle('open')
 })
 
@@ -39,7 +39,7 @@ function validateHost(el) {
             osc.removeClient(index)
             config.hosts = hosts
             // helpers.updateConfig(config)
-            app.win.setSize(app.win.getSize()[0], shortcuts.getBoundingClientRect().bottom)
+            app.win.setContentSize(app.win.getContentSize()[0], shortcuts.getBoundingClientRect().bottom)
         }
 
         helpers.unfocus(el)
@@ -166,7 +166,7 @@ function addHostLi(host, selected = true) {
 // Events
 addEventListener('resize', helpers.debounce(e => {
     // update config.json
-    const dimensions = app.win.getSize()
+    const dimensions = app.win.getContentSize()
     config.width = dimensions[0]
     config.height = dimensions[1]
     config.displayShortcuts = shortcuts.classList.contains('open')
@@ -175,12 +175,12 @@ addEventListener('resize', helpers.debounce(e => {
 
 addButton.addEventListener('click', e => {
     addHostLi()
-    app.win.setSize(app.win.getSize()[0], shortcuts.getBoundingClientRect().bottom)
+    app.win.setContentSize(app.win.getContentSize()[0], shortcuts.getBoundingClientRect().bottom)
 })
 
 shortcuts.querySelector('p').addEventListener('click', () => {
     shortcuts.classList.toggle('open')
-    app.win.setSize(app.win.getSize()[0], shortcuts.getBoundingClientRect().bottom)
+    app.win.setContentSize(app.win.getContentSize()[0], shortcuts.getBoundingClientRect().bottom)
     config.width = innerWidth
     config.height = innerHeight
     config.displayShortcuts = shortcuts.classList.contains('open')
