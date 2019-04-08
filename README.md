@@ -51,6 +51,10 @@ You can also build it for your system using `npm run build_osx`, `npm run build_
 - send to **multiple hosts** at once:  
     `;2a#foo` in ORCΛ sends `/foo` to the third and tenth hosts in Λioi
 
+- **host /path shortcuts**: (supports **complex paths**)
+    `;#1;2f` in ORCΛ sends `0.2` to the second host in Λioi with its path defined in Λioi  
+    `;#a;yo;135` in ORCΛ sends `yo 135` to the tenth host in Λioi with its path defined in Λioi
+
 Λioi does not support:
 - complex paths (eg. `/foo/bar`)
 - negative values

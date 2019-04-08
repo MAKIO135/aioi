@@ -52,9 +52,14 @@ const parseOrcaMsg = data => {
 
     let indexes = [0]
     let path = clientPath
-    if(clientPath.includes('#')) {
+
+    if(clientPath.startsWith('#')) {
+        indexes = [parseInt(clientPath[1], 36)]
+        path = document.querySelector(`p.msg[data-index="${indexes[0]}"]`).innerText.split(' ')[0].substr(1)
+    }
+    else if(clientPath.includes('#')) {
         const [clientArg, pathArg] = clientPath.split('#')
-        indexes = clientArg.split('').map(d=>parseInt(d,36))
+        indexes = clientArg.split('').map(d=>parseInt(d, 36))
         path = pathArg
     }
     
