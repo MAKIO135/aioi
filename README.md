@@ -56,7 +56,6 @@ You can also build it for your system using `npm run build_osx`, `npm run build_
     `;#a;yo;135` in ORCΛ sends `yo 135` to the tenth host in Λioi with its path defined in Λioi
 
 Λioi does not support:
-- complex paths (eg. `/foo/bar`)
 - negative values
 - arrays
 
