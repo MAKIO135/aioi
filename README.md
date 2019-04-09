@@ -1,12 +1,15 @@
 # Λioi
+
 A companion app for [ORCΛ](https://wiki.xxiivv.com/#orca) using its [UDP operator](https://github.com/hundredrabbits/Orca#udp) to send complex OSC message to multiple hosts.
 
 ![Λioi](aioi.gif)
 
 ### Goals
+
 Λioi is an [ElectronJS](https://electronjs.org) application that intends to let you access the extra complexity you may need for ORCΛ to drive your applications. Λioi provides support for OSC messages with multiple parameters, types and to multiple hosts. Λioi helps you configure OSC hosts dynamically with a simple GUI and test your OSC messages.
 
 ### Install & Run
+
 You can download [builds](https://github.com/MAKIO135/aioi/releases) for **OSX, Windows and Linux**, or if you wish to run it from sources, follow these steps:
 ```
 git clone https://github.com/MAKIO135/aioi.git
@@ -17,7 +20,6 @@ npm run start
 You can also build it for your system using `npm run build_osx`, `npm run build_linux` or `npm run build_win`.
 
 ### Usage from ORCΛ
-`;`*[base36hostIndex1[base36hostIndex2[...base36hostIndexN]]`#`]* **path** *[`;`parameter1[`;`parameter2[`;`...parameterN]]]*
 
 - specify **path**:  
     `;foo` in ORCΛ sends `/foo` to the first host in Λioi  
@@ -55,18 +57,23 @@ You can also build it for your system using `npm run build_osx`, `npm run build_
     `;#1;2f` in ORCΛ sends `0.2` to the second host in Λioi with its path defined in Λioi  
     `;#a;yo;135` in ORCΛ sends `yo 135` to the tenth host in Λioi with its path defined in Λioi
 
-Λioi does not support:
+#### Λioi does not support:
+
 - negative values
 - arrays
 
 ### Example
+
 Open [aioi_test.orca](https://github.com/MAKIO135/aioi/blob/master/aioi_test.orca) with ORCΛ and start [listener.js](https://github.com/MAKIO135/aioi/blob/master/listener.js) with NodeJS:
+
 ```
 cd aioi
 node listener.js
 ```
 
 ### Extra
+
 This application supports the [Ecosystem Theme](https://github.com/hundredrabbits/Themes).  
 PR are welcomed.  
-**Extra thanks to [Devine Lu Linvega](https://wiki.xxiivv.com/#devine+lu+linvega) for all his works.**
+
+**Extra thanks to [Devine Lu Linvega](https://wiki.xxiivv.com/#devine+lu+linvega) for all their works.**
