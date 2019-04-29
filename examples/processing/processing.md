@@ -1,6 +1,6 @@
 # ORCΛ x Λioi x Processing
 
-<img width="100%" src="aioi_p5.gif">
+![](aioi_p5.gif)
 
 ## Dependency
 To get Processing (*P5*) working with OSC, we need the [oscP5 library](http://www.sojamo.de/libraries/oscP5/).
