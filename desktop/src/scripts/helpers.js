@@ -144,12 +144,12 @@ const bangHost = el => {
 const loadConfig = () => {
     if(!localStorage.getItem('config')) {
         const initialConfig = {
-            ORCA_PORT: 49160,
+            ORCA_PORT: 49161,
             width: 300,
             height: 330,
             hosts: [
+                '127.0.0.1:12000',
                 '127.0.0.1:8000',
-                '127.0.0.1:12000'
             ],
             displayShortcuts: true
         }

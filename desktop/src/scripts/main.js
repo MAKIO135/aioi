@@ -166,7 +166,7 @@ addEventListener('load', e => {
 })
 
 addEventListener('resize', helpers.debounce(e => {
-    // update config.json
+    // update config
     const dimensions = app.win.getContentSize()
     config.width = dimensions[0]
     config.height = dimensions[1]
