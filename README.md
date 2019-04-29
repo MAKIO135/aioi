@@ -62,7 +62,7 @@ You can also build it for your system using `npm run build_osx`, `npm run build_
 - negative values
 - arrays
 
-### Example
+### Examples
 
 Open [aioi_test.orca](https://github.com/MAKIO135/aioi/blob/master/aioi_test.orca) with ORCΛ and start [listener.js](https://github.com/MAKIO135/aioi/blob/master/listener.js) with NodeJS:
 
@@ -70,6 +70,9 @@ Open [aioi_test.orca](https://github.com/MAKIO135/aioi/blob/master/aioi_test.orc
 cd aioi
 node listener.js
 ```
+
+Tutorials are coming for different platforms:
+- [ORCΛ x Λioi x Processing](examples/processing/processing.md)
 
 ### Extra
 
