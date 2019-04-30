@@ -1,0 +1,2 @@
+d1 $ sound "arpy*4" |+ n (cF 0 "a1")
+
