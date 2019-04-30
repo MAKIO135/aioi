@@ -2,6 +2,8 @@
 
 ![](aioi_tidal.gif)
 
+TidalCycles has `cF` function whitch controls value from OSC message.
+
 ## Config
 
 **ORCΛ**:  
