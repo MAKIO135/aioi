@@ -2,7 +2,7 @@
 
 ![](aioi_tidal.gif)
 
-TidalCycles has `cF` function whitch controls value from OSC message.
+TidalCycles has `cF` function which controls value from OSC message.
 
 ## Config
 
@@ -16,7 +16,7 @@ Make sure that ORCΛ is running UDP on port 49161 (Default)
 ```
 
 **Λioi**:  
-Set first host to `127.0.0.1:6010` where TidalCycles controls listening.
+Set first host to `127.0.0.1:6010` where TidalCycles listening.
 ![](aioi_config.png)
 
 **TidalCycles**:
@@ -25,8 +25,10 @@ Set first host to `127.0.0.1:6010` where TidalCycles controls listening.
 d1 $ sound "arpy*4" |+ n (cF 0 "a1")
 ```
 
-First argument of `cF` function is default value.
+First parameter of `cF` function is default value.
 
-Second argument is name for to access the value whitch we set at Orca's OSC message.
+Second parameter is name for to access the value whitch we set at Orca's OSC message.
 
-see [reference](http://)
+In our case, `a1` in Orca's message is match with Tidal's second parameter of `cF` function.
+
+see [reference](https://tidalcycles.org/index.php/Controller_Input)
