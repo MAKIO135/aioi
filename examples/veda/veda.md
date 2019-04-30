@@ -37,7 +37,7 @@ void main() {
 
 `/*{ "osc": 5000 }*/`
 
-Top of shader file, OSC listening port is set by one line code which is be comment out.
+Top of shader file, OSC listening port is set by one line code which is comment out.
 
 `uniform sampler2D osc_sample;`
 
