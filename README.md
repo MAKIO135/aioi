@@ -71,8 +71,11 @@ cd aioi
 node listener.js
 ```
 
-Tutorials are coming for different platforms:
+Tutorials for different platforms:
 - [ORCΛ x Λioi x Processing](examples/processing/processing.md)
+- [ORCΛ x Λioi x SuperCollider](examples/supercollider/supercollider.md)
+- [ORCΛ x Λioi x TidalCycles](examples/tidalcycles/tidalcycles.md)
+- [ORCΛ x Λioi x Veda](examples/veda/veda.md)
 
 ### Extra
 
