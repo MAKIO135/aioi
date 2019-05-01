@@ -144,7 +144,6 @@ const bangHost = el => {
 const loadConfig = () => {
     if(!localStorage.getItem('config')) {
         const initialConfig = {
-            ORCA_PORT: 49161,
             width: 300,
             height: 330,
             hosts: [
