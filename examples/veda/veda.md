@@ -31,7 +31,7 @@ uniform sampler2D osc_sample;
 
 void main() {
   vec2 uv = gl_FragCoord.xy / resolution;
-  gl_FragColor = texture2D(osc_sample, uv));
+  gl_FragColor = texture2D(osc_sample, uv);
 }
 ```
 
@@ -55,7 +55,7 @@ e.g.
 
 In our case, address should be `/sample`.
 
-`gl_FragColor = texture2D(osc_sample, uv));`
+`gl_FragColor = texture2D(osc_sample, uv);`
 
 Finally we can access value with `texture2D` function.
 
