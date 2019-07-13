@@ -2,10 +2,10 @@
 
 <html lang="en">
     <head>
+        <title>Λioi</title>
         <meta charset="utf-8">
-        <title>Orca OSC Bridge</title>
-        <script type="text/javascript" src="src/scripts/lib/theme.js"></script>
-        <link rel="stylesheet" href="src/links/main.min.css">
+        <script type="text/javascript" src="js/lib/theme.js"></script>
+        <link rel="stylesheet" href="css/main.min.css">
     </head>
 
     <body>
@@ -14,7 +14,7 @@
                 <li><p class="index" data-action="add">+</p></li>
             </ul>
 
-            <div id="shortcuts">
+            <!-- <div id="shortcuts">
                 <p>[<span></span>]</p>
 
                 <ul>
@@ -22,12 +22,11 @@
                     <li>Empty host adress and hit <kbd>Enter</kbd> to remove.</li>
                     <li>Focus message and hit <kbd>Enter</kbd> to send.</li>
                 </ul>
-            </div>
+            </div> -->
 
             <div id="tooltip"></div>
         </div>
-        <script>
-            require('./src/scripts/main.js')
-        </script>
+    
+        <script>require('./js/main');</script>
     </body>
 </html>
