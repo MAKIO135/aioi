@@ -1,7 +1,7 @@
 {
   "name": "aioi",
-  "version": "0.3.6",
-  "description": "Supercharge Orca's UDP operator to send complex OSC message",
+  "version": "2.0.0",
+  "description": "A companion app for [ORCΛ](https://wiki.xxiivv.com/#orca) using its [UDP operator](https://github.com/hundredrabbits/Orca#udp) to send complex OSC message to multiple hosts.",
   "homepage": "https://github.com/makio135/aioi#readme",
   "main": "index.js",
   "scripts": {
@@ -22,17 +22,17 @@
     "OSC",
     "bridge"
   ],
-  "author": "@makio135, @ashugeo",
+  "author": "@makio135 @ashugeo",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/makio135/aioi/issues"
   },
   "devDependencies": {
-    "electron": "^4.0.2",
-    "electron-packager": "^13.0.1",
-    "electron-rebuild": "^1.8.2"
+    "electron": "^5.0.6",
+    "electron-packager": "^14.0.1",
+    "electron-rebuild": "^1.8.5"
   },
   "dependencies": {
-    "node-osc": "^3.0.0"
+    "node-osc": "^4.1.0"
   }
 }
