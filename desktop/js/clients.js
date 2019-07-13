@@ -30,9 +30,23 @@ module.exports = (app) => {
 
     const clients = [];
 
-    const createClient = (host) => clients.push(new Client(host));
+    const createClient = (host) => {
+        if (typeof(host) === 'string' && helpers.formatHost(host)) {
+            const [ip, port] = host.split(':');
+            host = {
+                ip,
+                port,
+                type: 'osc',
+                path: '/',
+                oscString: '/'
+            };
+        }
+        clients.push(new Client(host));
+    };
     const updateClient = (index, host) =>  clients.splice(index, 1, new Client(host));
+
     const removeClient = (index) => clients.splice(index, 1);
+
     const sendCallback = (err) => err ? console.warn(err) : 1;
   
     const sendFromOrca = (msg) => {
