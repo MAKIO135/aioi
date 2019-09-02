@@ -26,6 +26,8 @@ Veda can set any port for listening by the way which describe in the next chapte
 ```glsl
 /*{ "osc": 5000 }*/
 
+precision mediump float;
+
 uniform vec2 resolution;
 uniform sampler2D osc_sample;
 
