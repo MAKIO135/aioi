@@ -51,8 +51,9 @@ You can also build it for your system using `npm run build_osx`, `npm run build_
 
 - **host /complex/path shortcuts**: (supports **complex paths**)  
     Define your paths in the message inputs of your hosts in Aioi  
-    `;#13;2f` in ORCΛ sends `0.2` to the second and fourth hosts in Λioi with their path defined in Λioi  
-    `;#a2;yo;135` in ORCΛ sends `yo 135` to the tenth and third hosts in Λioi with their path defined in Λioi
+    `;#3;2f` in ORCΛ sends `0.2` to the fourth hosts in Λioi with its path defined in Λioi  
+    `;#a2;yo;135` in ORCΛ sends `yo 135` to the tenth and third hosts in Λioi with their path defined in Λioi  
+    **To use a complex path for a specific host, define the path in Λioi and press [ ENTER ]**
 
 #### Λioi does not support:
 - negative values
