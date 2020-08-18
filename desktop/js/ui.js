@@ -243,15 +243,27 @@ module.exports = (app) => {
             validateHost(el, app.config.hosts[index]);
         }
 
-        const lastHost = app.config.hosts[app.config.hosts.length - 1];
-        const newHost = {
-            ip: lastHost.ip,
-            port: lastHost.port + 1,
-            type: lastHost.type,
-            oscString: '',
-            udpString: ''
-        };
-        
+        let newHost;
+        if (app.config.hosts.length > 0) {
+            const lastHost = app.config.hosts[app.config.hosts.length - 1];
+            newHost = {
+                ip: lastHost.ip,
+                port: lastHost.port + 1,
+                type: lastHost.type,
+                oscString: '',
+                udpString: ''
+            };
+        }
+        else {
+            newHost = {
+                ip: '127.0.0.1',
+                port: 8000,
+                type: 'osc',
+                path: '/yo',
+                oscString: '/yo 135 2.4 test'
+            };
+        }
+
         addHostLi(newHost);
         app.win.setContentSize(app.win.getContentSize()[0], addButton.getBoundingClientRect().bottom + 30);
     });
